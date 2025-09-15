@@ -1,0 +1,111 @@
+<?php
+/////////////////////////////////////////////////////////////////////////////
+// Represents a icd10_dx_order_code Collection
+//
+// Copyright @2018 - 2025 James John McGuire
+// All rights reserved.
+/////////////////////////////////////////////////////////////////////////////
+require_once "Defines.php";
+require_once "../Libraries/Utils.php";
+require_once "../Libraries/DatabaseLibrary.php";
+
+class icd10_dx_order_code
+{
+	var	$database;
+	var $debug;
+
+	/////////////////////////////////////////////////////////////////////////
+	// constructor
+	/////////////////////////////////////////////////////////////////////////
+	function __construct($database, $debug)
+	{
+		$this->database	= $database;
+		$this->debug = $debug;
+	}
+
+	/////////////////////////////////////////////////////////////////////////
+	// Delete
+	/////////////////////////////////////////////////////////////////////////
+	function Delete($dx_id)
+	{
+		$this->debug->Show(Debug::DEBUG, "icd10_dx_order_code::Delete");
+
+		$query = "DELETE FROM icd10_dx_order_code ".
+			"WHERE dx_id = '$dx_id'";
+
+		$result = $this->database->Delete($query);
+		$this->debug->Show(Debug::DEBUG, "icd10_dx_order_code::Delete return: $result");
+
+		return $result;
+	}
+
+	/////////////////////////////////////////////////////////////////////////
+	// GetList
+	/////////////////////////////////////////////////////////////////////////
+	function GetList($where)
+	{
+		$sql = "SELECT * FROM icd10_dx_order_code";
+
+		if (!empty($where))
+		{
+			$sql .= ' '.$where;
+		}
+
+		$icd10_dx_order_codes = $this->database->GetAll($sql);
+
+		return $icd10_dx_order_codes;
+	}
+
+	/////////////////////////////////////////////////////////////////////////
+	// GetRecord
+	/////////////////////////////////////////////////////////////////////////
+	function GetRecord($dx_id)
+	{
+		$sql = "SELECT * FROM icd10_dx_order_code WHERE dx_id = '$dx_id'";
+
+		$icd10_dx_order_codeRecord = $this->database->GetRow($sql);
+
+		return $icd10_dx_order_codeRecord;
+	}
+
+	/////////////////////////////////////////////////////////////////////////
+	// Insert
+	/////////////////////////////////////////////////////////////////////////
+	function Insert($dx_code, $formatted_dx_code, $valid_for_coding, $short_desc, $long_desc, $active, $revision)
+	{
+		$this->debug->Show(Debug::DEBUG, "icd10_dx_order_code::Insert");
+
+		$sql = "INSERT INTO icd10_dx_order_code (dx_code, formatted_dx_code, valid_for_coding, short_desc, long_desc, active, revision)".
+			" VALUES ('$dx_code', '" + "'$formatted_dx_code', '" + "'$valid_for_coding', '" + "'$short_desc', '" + "'$long_desc', '" + "'$active', '" + "'$revision')";
+
+		$result	= $this->database->Insert($sql);
+		$this->debug->Show(Debug::DEBUG, "icd10_dx_order_code::Insert return: $result");
+
+		return $result;
+	}
+
+	/////////////////////////////////////////////////////////////////////////
+	// Update
+	/////////////////////////////////////////////////////////////////////////
+	function Update($dx_id, $dx_code, $formatted_dx_code, $valid_for_coding, $short_desc, $long_desc, $active, $revision)
+	{
+		$this->debug->Show(Debug::DEBUG, "icd10_dx_order_code::Update");
+
+		$sql = "UPDATE icd10_dx_order_code SET ".
+				@"dx_code='$dx_code'," + 
+				@"formatted_dx_code='$formatted_dx_code'," + 
+				@"valid_for_coding='$valid_for_coding'," + 
+				@"short_desc='$short_desc'," + 
+				@"long_desc='$long_desc'," + 
+				@"active='$active'," + 
+				@"revision='$revision'" + 
+				
+				"WHERE dx_id = '$dx_id'";
+
+		$result = $this->database->Update($sql);
+		$this->debug->Show(Debug::DEBUG, "icd10_dx_order_code::Update return: $result");
+
+		return $result;
+	}
+}
+?>

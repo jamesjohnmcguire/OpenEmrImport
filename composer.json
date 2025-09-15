@@ -1,0 +1,23 @@
+{
+	"name": "jamesmc/practicefusionimport",
+	"description": "Import Practice Fusion Excel data into OpenEMR",
+	"funding":
+	[
+		{
+			"type": "github",
+			"url": "https://github.com/sponsors/jamesjohnmcguire"
+		}
+	],
+	"license": "MIT",
+	"type": "library",
+	"authors": [
+	{
+		"name": "JamesMc",
+		"email": "jamesjohnmcguire@gmail.com"
+	}
+	],
+	"require": {
+		"phpoffice/phpspreadsheet": "^5.0",
+		"roave/security-advisories": "dev-master"
+	}
+}
