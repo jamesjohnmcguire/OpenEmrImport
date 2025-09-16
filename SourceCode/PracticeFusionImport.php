@@ -43,7 +43,10 @@ class PracticeFusionImport
 	private $today;
 	private $uploadsDirectory = null;
 
-	function __construct($level, $logFile, $uploadsDirectory = null)
+	function __construct($level, $logFile, $uploadsDirectory, $host,
+		$user, $password)
+	{
+		$this = self::)
 	{
 		$this->logFile = $logFile;
 		$this->uploadsDirectory = $uploadsDirectory;
@@ -52,20 +55,6 @@ class PracticeFusionImport
 
 		$this->dataStartRow	= 2;
 		$this->today	= date('Y-m-d');
-
-		if ((array_key_exists('OS', $_SERVER)) &&
-			($_SERVER['OS'] == 'Windows_NT'))
-		{
-			$host = 'localhost';
-			$user = 'openemr';
-			$password = '61701bfe575c42f9a37';
-		}
-		else
-		{
-			$host = 'mysql';
-			$user = 'root';
-			$password = 'root';
-		}
 
 		$this->database = new DatabaseLibrary($host, 'openemr', $user,
 			$password, false, Debug::DEBUG, $logFile,

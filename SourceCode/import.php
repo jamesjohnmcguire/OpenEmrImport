@@ -35,8 +35,6 @@ $debugger = new Debug($debugLevel, $logFile);
 $debugger->Show($debugLevel, "starting import process");
 
 $path = getcwd();
-$practiceFusionImport =
-	new PracticeFusionImport($debugLevel, $logFile, $path);
 
 $excelFileName = null;
 
@@ -46,6 +44,18 @@ if (PHP_SAPI == 'cli')
 	{
 		$excelFileName = $argv[1];
 	}
+	if (!empty($argv[2]))
+	{
+		$host = $argv[2];
+	}
+	if (!empty($argv[3]))
+	{
+		$username = $argv[3];
+	}
+	if (!empty($argv[4]))
+	{
+		$password = $argv[4];
+	}
 }
 else
 {
@@ -54,6 +64,10 @@ else
 		$excelFileName = $_GET['file'];
 	}
 }
+
+$practiceFusionImport = new PracticeFusionImport(
+	$debugLevel, $logFile, $path, $host, $username, $password);
+
 $practiceFusionImport->Import($excelFileName);
 
 $totalTime	= microtime(true) - $timeStart;
